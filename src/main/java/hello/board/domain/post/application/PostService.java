@@ -18,6 +18,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     // 게시글 생성
+    @Transactional
     public Long createPost(Post post) {
         Post saved = postRepository.save(post);
         return saved.getId();
@@ -35,6 +36,7 @@ public class PostService {
     }
 
     // 게시글 삭제
+    @Transactional
     public void deletePost(Post post) {
         postRepository.delete(post);
     }

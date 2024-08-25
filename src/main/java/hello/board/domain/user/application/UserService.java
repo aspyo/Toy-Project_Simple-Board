@@ -46,6 +46,7 @@ public class UserService {
     }
 
     //회원 탈퇴
+    @Transactional
     public void delete(Long userId) {
         Optional<User> findUser = userRepository.findById(userId);
         userRepository.delete(findUser.orElseThrow(() -> new EntityNotFoundException("해당 유저를 찾을 수 없습니다.")));
