@@ -21,8 +21,10 @@ public class User extends BaseEntity {
 
     private String username;
 
-    private String login_id;
+    @Column(unique = true)
+    private String loginId;
 
+    @Column(unique = true)
     private String password;
 
     @OneToMany(mappedBy = "user")
@@ -32,9 +34,9 @@ public class User extends BaseEntity {
     }
 
     @Builder
-    public User(String username, String login_id, String password) {
+    public User(String username, String loginId, String password) {
         this.username = username;
-        this.login_id = login_id;
+        this.loginId = loginId;
         this.password = password;
     }
 }
