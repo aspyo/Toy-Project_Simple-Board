@@ -2,13 +2,17 @@ package hello.board.domain.post.application;
 
 import hello.board.domain.category.domain.Category;
 import hello.board.domain.post.domain.Post;
+import hello.board.domain.post.repository.PostRepository;
 import hello.board.domain.user.application.UserService;
 import hello.board.domain.user.domain.User;
 import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,11 +23,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@Rollback(value = false)
+@Slf4j
 class PostServiceTest {
 
     @Autowired
     PostService postService;
+
+    @Autowired
+    PostRepository postRepository;
 
     @Autowired
     EntityManager em;
@@ -90,6 +97,32 @@ class PostServiceTest {
 
         //then
         assertThat(posts.size()).isEqualTo(0);
+
+    }
+
+    @Test
+    void 게시글페이징() throws Exception {
+
+        List<Post> posts = postRepository.findMainPost();
+
+        for (Post post : posts) {
+            log.info("게시글 = {}", post.getTitle());
+        }
+    }
+
+    @Test
+    void 카테고리별_게시글() throws Exception {
+        //given
+        Category category = em.find(Category.class, 1);
+        log.info("카테고리 = {}", category.getCategoryName());
+        PageRequest pageRequest = PageRequest.of(0, 10);
+
+        //when
+        Page<Post> postPage = postRepository.findByCategory(category, pageRequest);
+        List<Post> posts = postPage.getContent();
+
+        //then
+        Assertions.assertThat(posts.size()).isEqualTo(2);
 
     }
 }
