@@ -40,4 +40,9 @@ public class PostService {
     public void deletePost(Post post) {
         postRepository.delete(post);
     }
+
+    // 메인페이지 게시글20개 조회
+    public List<Post> findMainPagePost() {
+        return postRepository.findMainPost();
+    }
 }

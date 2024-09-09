@@ -2,9 +2,11 @@ package hello.board.domain.post.application;
 
 import hello.board.domain.category.domain.Category;
 import hello.board.domain.post.domain.Post;
+import hello.board.domain.post.repository.PostRepository;
 import hello.board.domain.user.application.UserService;
 import hello.board.domain.user.domain.User;
 import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +20,20 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Transactional
-@Rollback(value = false)
+@Slf4j
 class PostServiceTest {
 
     @Autowired
     PostService postService;
 
     @Autowired
+    PostRepository postRepository;
+
+    @Autowired
     EntityManager em;
 
     @Test
+    @Transactional
     void 게시글생성() throws Exception {
         //given
         User userA = User.builder()
@@ -70,6 +75,7 @@ class PostServiceTest {
     }
 
     @Test
+    @Transactional
     void 게시글삭제() throws Exception {
         //given
         Post postA = Post.builder()
@@ -91,5 +97,16 @@ class PostServiceTest {
         //then
         assertThat(posts.size()).isEqualTo(0);
 
+    }
+
+    @Test
+    @Transactional
+    void 게시글페이징() throws Exception {
+
+        List<Post> posts = postRepository.findMainPost();
+
+        for (Post post : posts) {
+            log.info("게시글 = {}", post.getTitle());
+        }
     }
 }
