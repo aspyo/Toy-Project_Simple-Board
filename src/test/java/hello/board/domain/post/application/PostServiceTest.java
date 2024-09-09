@@ -11,6 +11,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 @Slf4j
 class PostServiceTest {
 
@@ -33,7 +36,6 @@ class PostServiceTest {
     EntityManager em;
 
     @Test
-    @Transactional
     void 게시글생성() throws Exception {
         //given
         User userA = User.builder()
@@ -75,7 +77,6 @@ class PostServiceTest {
     }
 
     @Test
-    @Transactional
     void 게시글삭제() throws Exception {
         //given
         Post postA = Post.builder()
@@ -100,7 +101,6 @@ class PostServiceTest {
     }
 
     @Test
-    @Transactional
     void 게시글페이징() throws Exception {
 
         List<Post> posts = postRepository.findMainPost();
@@ -108,5 +108,21 @@ class PostServiceTest {
         for (Post post : posts) {
             log.info("게시글 = {}", post.getTitle());
         }
+    }
+
+    @Test
+    void 카테고리별_게시글() throws Exception {
+        //given
+        Category category = em.find(Category.class, 1);
+        log.info("카테고리 = {}", category.getCategoryName());
+        PageRequest pageRequest = PageRequest.of(0, 10);
+
+        //when
+        Page<Post> postPage = postRepository.findByCategory(category, pageRequest);
+        List<Post> posts = postPage.getContent();
+
+        //then
+        Assertions.assertThat(posts.size()).isEqualTo(2);
+
     }
 }
