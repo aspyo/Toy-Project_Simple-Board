@@ -34,7 +34,7 @@ public class PostController {
         model.addAttribute("category", category);
         model.addAttribute("posts", posts);
         model.addAttribute("currentPage", postPage.getNumber() + 1);
-        model.addAttribute("totalPages", postPage.getTotalPages());
+        model.addAttribute("totalPages", Math.max(postPage.getTotalPages(), 1));
 
         return "post/category-post";
     }
