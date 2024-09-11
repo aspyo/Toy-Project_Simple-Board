@@ -46,9 +46,15 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    // 메인페이지 게시글20개 조회
+    // 메인페이지 게시글 최대 20개 조회
     public List<Post> findMainPagePost() {
         return postRepository.findMainPost();
+    }
+
+    // 메인페이지 게시글 최대 20개 조회 2
+    public List<Post> findMainPagePost2() {
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "createdAt"));
+        return postRepository.findMainPage2(pageRequest);
     }
 
     // 게시글 페이징 조회
@@ -56,4 +62,6 @@ public class PostService {
         PageRequest pageRequest = PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC, "createdAt"));
         return postRepository.findByCategory(category, pageRequest);
     }
+
+
 }

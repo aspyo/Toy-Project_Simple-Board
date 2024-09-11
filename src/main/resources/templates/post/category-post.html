@@ -36,11 +36,11 @@ ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
                    th:href="@{|/category/${category.id}?page=${i}|}"
                    th:text="${i}">1</a>
                 <span th:if="${i == currentPage}" th:text="${i}"></span>
-            </span>
+    </span>
 
     <span th:if="${currentPage < totalPages}">
                 <a th:href="@{|/category/${category.id}?page=${currentPage + 1}}">다음</a>
-            </span>
+    </span>
   </div>
 </main>
 </body>

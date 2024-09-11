@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -123,6 +124,21 @@ class PostServiceTest {
 
         //then
         Assertions.assertThat(posts.size()).isEqualTo(2);
+
+    }
+
+    @Test
+    void 메인페이지_게시글2() throws Exception {
+        //given
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        //when
+        List<Post> mainPage2 = postRepository.findMainPage2(pageRequest);
+
+        //then
+        for (Post post : mainPage2) {
+            log.info("게시글 = {}", post.getTitle());
+        }
 
     }
 }
