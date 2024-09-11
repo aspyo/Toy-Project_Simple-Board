@@ -25,11 +25,18 @@ class UserServiceTest {
         User userA = User.builder()
                 .loginId("testId")
                 .password("testPassword")
-                .username("userA")
+                .username("userAads")
+                .build();
+
+        User userB = User.builder()
+                .loginId("testIdddd")
+                .password("testPassworddddd")
+                .username("udawa")
                 .build();
 
         //when
         Long joinedId = userService.join(userA);
+        userService.join(userB);
         User joinedUser = userService.findUser(joinedId);
 
         //then
