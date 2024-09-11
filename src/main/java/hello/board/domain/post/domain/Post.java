@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 public class Post extends BaseEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long id;
 

@@ -24,7 +24,7 @@ public class CustomRepositoryImpl implements CustomRepository{
                 .from(post)
                 .orderBy(post.createdAt.desc())
                 .offset(0)
-                .limit(3)
+                .limit(20)
                 .fetch();
 
         return results;

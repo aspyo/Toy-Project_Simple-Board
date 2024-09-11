@@ -21,7 +21,7 @@ public class IndexController {
     @GetMapping("/")
     public String mainPage(Model model) {
         List<Category> categories = categoryService.findAll();
-        List<Post> posts = postService.findMainPagePost();
+        List<Post> posts = postService.findMainPagePost2();
 
         model.addAttribute("categories", categories);
         model.addAttribute("posts", posts);

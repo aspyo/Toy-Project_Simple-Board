@@ -34,8 +34,17 @@ public class PostController {
         model.addAttribute("category", category);
         model.addAttribute("posts", posts);
         model.addAttribute("currentPage", postPage.getNumber() + 1);
-        model.addAttribute("totalPages", postPage.getTotalPages());
+        model.addAttribute("totalPages", Math.max(postPage.getTotalPages(), 1));
 
         return "post/category-post";
+    }
+
+    @GetMapping("/post/{post_id}")
+    public String postDetail(@PathVariable("post_id") Long postId, Model model) {
+        Post findPost = postService.findPost(postId);
+        model.addAttribute("post", findPost);
+        model.addAttribute("comments", findPost.getComments());
+
+        return "post/post-detail";
     }
 }

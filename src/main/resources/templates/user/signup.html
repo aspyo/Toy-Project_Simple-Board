@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+  <style>
+    .field-error {
+      border-color: #dc3545;
+      color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>회원가입</h1>
+</header>
+
+<main>
+  <form th:action="@{/signup}" th:object="${signupForm}" method="post">
+    <div th:if="${#fields.hasGlobalErrors()}">
+      <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+    </div>
+    <div>
+      <label>이름</label>
+      <input type="text" id="username" th:field="*{username}" class="form-control"
+             th:errorclass="field-error" required>
+    </div>
+    <div>
+      <label>아이디</label>
+      <input type="text" id="loginId" th:field="*{loginId}" class="form-control"
+             th:errorclass="field-error" required>
+    </div>
+    <div>
+      <label>비밀번호</label>
+      <input type="text" id="password" th:field="*{password}" class="form-control"
+             th:errorclass="field-error" required>
+    </div>
+    <div>
+      <label>비밀번호 확인</label>
+      <input type="text" id="passwordConfirm" th:field="*{passwordConfirm}" class="form-control"
+             th:errorclass="field-error" required>
+    </div>
+    <button type="submit">가입하기</button>
+  </form>
+  <a th:href="@{/static}">메인 페이지로 돌아가기</a>
+</main>
+</body>
+</html>

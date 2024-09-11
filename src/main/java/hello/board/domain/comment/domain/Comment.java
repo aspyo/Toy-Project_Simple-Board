@@ -12,8 +12,8 @@ import lombok.Getter;
 public class Comment extends BaseEntity {
 
     @Id
-    @GeneratedValue
-    @Column(name = "content_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private Long id;
 
     private String content;

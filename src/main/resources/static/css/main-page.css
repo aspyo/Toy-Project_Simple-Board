@@ -1,0 +1,98 @@
+/* 공통 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav label {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+nav select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+div {
+    display: flex;
+    align-items: center;
+}
+
+div button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+div button:hover {
+    background-color: #218838;
+}
+
+div a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #17a2b8;
+    border-radius: 4px;
+}
+
+div a:hover {
+    background-color: #138496;
+}
+
+main {
+    padding: 20px;
+}
+
+main h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}

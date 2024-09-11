@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+  <title th:text="${post.title}">게시글 제목</title>
+</head>
+<body>
+<header>
+  <h1 th:text="${post.title}">게시글 제목</h1>
+  <p th:text="${post.createdAt}">작성일자</p>
+  <p th:text="${post.user.username}">작성자</p>
+  <a th:href="@{/category/{id}(id=${post.category.id})}">카테고리로 돌아가기</a>
+</header>
+
+<main>
+  <div>
+    <h2>내용</h2>
+    <p th:text="${post.content}">게시글 내용</p>
+  </div>
+
+  <section>
+    <h3>댓글</h3>
+    <ul>
+      <li th:each="comment : ${comments}">
+        <p><strong th:text="${comment.user.username}">작성자</strong></p>
+        <p th:text="${comment.content}">댓글 내용</p>
+      </li>
+    </ul>
+
+    <h4>댓글 작성</h4>
+    <form th:action="@{/post/{id}/comment(id=${post.id})}" method="post">
+      <input type="text" name="author" placeholder="작성자"/>
+      <textarea name="content" placeholder="댓글 내용"></textarea>
+      <button type="submit">댓글 작성</button>
+    </form>
+  </section>
+</main>
+</body>
+</html>

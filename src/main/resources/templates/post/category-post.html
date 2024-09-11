@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-
-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-  <title>카테고리별 게시글 목록</title>
+    <meta charset="UTF-8">
+    <title>카테고리별 게시글 목록</title>
+    <link rel="stylesheet" href="/css/category-post.css">
 </head>
 <body>
 <header>
-  <h1 th:text="${category.categoryName}">카테고리명</h1>
-  <a th:href="@{/}">메인 페이지로</a>
+    <h1 th:text="${category.categoryName}">카테고리명</h1>
+    <a th:href="@{/}">메인 페이지로</a>
 </header>
-
 <main>
-  <h2>게시글 목록</h2>
-  <ul>
-    <li th:each="post : ${posts}">
-      <a th:href="@{|/post/${post.id}|}" th:text="${post.title}">게시글 제목</a>
-    </li>
-  </ul>
+    <h2>게시글 목록</h2>
+    <ul>
+        <li th:each="post : ${posts}">
+            <a th:href="@{|/post/${post.id}|}" th:text="${post.title}">게시글 제목</a>
+        </li>
+    </ul>
 
-  <!-- 새 게시글 작성 링크 -->
-  <a th:href="@{|/post/new?category=${category.id}|}">새 게시글 작성</a>
+    <!-- 새 게시글 작성 링크 -->
+    <a class="new-post-link" th:href="@{|/post/new?category=${category.id}|}">새 게시글 작성</a>
 
-  <!-- 페이지네이션 -->
-  <div class="pagination">
-            <span th:if="${currentPage > 1}">
-                <a th:href="@{|/category/${category.id}?page=${currentPage - 1}}">이전</a>
-            </span>
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+        <!-- 이전 페이지 링크 -->
+        <span th:if="${currentPage > 1}">
+        <a th:href="@{|/category/${category.id}?page=${currentPage - 1}|}">이전</a>
+      </span>
 
-    <!-- 페이지 번호 -->
-    <span th:each="i : ${#numbers.sequence(1, totalPages)}">
-                <a th:if="${i != currentPage}"
-                   th:href="@{|/category/${category.id}?page=${i}|}"
-                   th:text="${i}">1</a>
-                <span th:if="${i == currentPage}" th:text="${i}"></span>
-            </span>
+        <!-- 페이지 번호 -->
+        <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+        <a th:if="${i != currentPage}"
+           th:href="@{|/category/${category.id}?page=${i}|}"
+           th:text="${i}">1</a>
+        <span th:if="${i == currentPage}" th:text="${i}"></span>
+      </span>
 
-    <span th:if="${currentPage < totalPages}">
-                <a th:href="@{|/category/${category.id}?page=${currentPage + 1}}">다음</a>
-            </span>
-  </div>
+        <!-- 다음 페이지 링크 -->
+        <span th:if="${currentPage < totalPages}">
+        <a th:href="@{|/category/${category.id}?page=${currentPage + 1}|}">다음</a>
+      </span>
+    </div>
 </main>
 </body>
 </html>
