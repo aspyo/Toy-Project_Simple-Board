@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-
+ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+  <title>새 게시글 작성</title>
+</head>
+<body>
+<header>
+  <h1>새 게시글 작성</h1>
+</header>
+
+<main>
+  <form th:action="@{/post}" method="post">
+    <input type="hidden" name="categoryId" th:value="${categoryId}"/>
+    <input type="text" name="title" placeholder="제목" required/>
+    <textarea name="content" placeholder="내용" required></textarea>
+    <input type="text" name="author" placeholder="작성자" required/>
+    <button type="submit">작성하기</button>
+  </form>
+  <a th:href="@{|/category/${categoryId}|}">카테고리로 돌아가기</a>
+</main>
+</body>
+</html>

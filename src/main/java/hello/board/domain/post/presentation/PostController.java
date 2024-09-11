@@ -38,4 +38,13 @@ public class PostController {
 
         return "post/category-post";
     }
+
+    @GetMapping("/post/{post_id}")
+    public String postDetail(@PathVariable("post_id") Long postId, Model model) {
+        Post findPost = postService.findPost(postId);
+        model.addAttribute("post", findPost);
+        model.addAttribute("comments", findPost.getComments());
+
+        return "post/post-detail";
+    }
 }
