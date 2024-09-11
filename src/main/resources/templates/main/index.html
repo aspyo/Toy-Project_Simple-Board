@@ -20,12 +20,7 @@ ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         </select>
     </nav>
     <div>
-        <h3>로그인</h3>
-        <form th:action="@{/login}" method="post">
-            <input type="text" name="username" placeholder="아이디"/>
-            <input type="password" name="password" placeholder="비밀번호"/>
-            <button type="submit">로그인</button>
-        </form>
+        <button onclick="location.href='/login'">로그인하기</button>
         <a th:href="@{/signup}">회원가입</a>
     </div>
 </header>

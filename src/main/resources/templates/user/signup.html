@@ -13,13 +13,13 @@ ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 </header>
 
 <main>
-  <form th:action="@{/signup}" method="post">
+  <form th:action="@{/templates/signup}" method="post">
     <input type="text" name="username" placeholder="아이디" required/>
     <input type="password" name="password" placeholder="비밀번호" required/>
     <input type="password" name="passwordConfirm" placeholder="비밀번호 확인" required/>
     <button type="submit">가입하기</button>
   </form>
-  <a th:href="@{/}">메인 페이지로 돌아가기</a>
+  <a th:href="@{/static}">메인 페이지로 돌아가기</a>
 </main>
 </body>
 </html>

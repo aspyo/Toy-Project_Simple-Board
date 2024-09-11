@@ -106,4 +106,5 @@ class UserServiceTest {
         assertThat(users.size()).isEqualTo(2);
 
     }
+
 }
