@@ -4,10 +4,10 @@ import hello.board.domain.login.LoginService;
 import hello.board.domain.user.application.UserService;
 import hello.board.domain.user.domain.User;
 import hello.board.domain.user.dto.LoginForm;
+import hello.board.domain.user.dto.SignupForm;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,8 +51,38 @@ public class UserController {
         return "redirect:/";
     }
 
-//    @GetMapping("/signup")
-//    public String signupForm() {
-//
-//    }
+    @GetMapping("/signup")
+    public String signupForm(Model model) {
+        model.addAttribute("signupForm", new SignupForm());
+        return "user/signup";
+    }
+
+    @PostMapping("/signup")
+    public String signup(@ModelAttribute("signupForm") SignupForm form, BindingResult bindingResult) {
+        // 비밀번호 = 비밀번호확인 검증
+        if(!form.getPassword().equals(form.getPasswordConfirm())){
+            bindingResult.reject(null, "비밀번호가 맞지 않습니다.");
+
+            return "user/signup";
+        }
+
+        try {
+            User newUser = User.builder()
+                    .username(form.getUsername())
+                    .loginId(form.getLoginId())
+                    .password(form.getPassword())
+                    .build();
+
+            userService.join(newUser);
+        } catch (IllegalStateException e) {
+            bindingResult.reject(null, e.getMessage());
+            return "user/signup";
+        }
+
+        //회원가입 성공
+        return "redirect:/login";
+
+    }
+
+
 }
