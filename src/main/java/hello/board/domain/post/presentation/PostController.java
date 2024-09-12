@@ -4,6 +4,9 @@ import hello.board.domain.category.application.CategoryService;
 import hello.board.domain.category.domain.Category;
 import hello.board.domain.post.application.PostService;
 import hello.board.domain.post.domain.Post;
+import hello.board.domain.user.domain.User;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -40,10 +43,17 @@ public class PostController {
     }
 
     @GetMapping("/post/{post_id}")
-    public String postDetail(@PathVariable("post_id") Long postId, Model model) {
+    public String postDetail(@PathVariable("post_id") Long postId, HttpServletRequest request, Model model) {
         Post findPost = postService.findPost(postId);
+
+        HttpSession session = request.getSession(false);
+
+        // loginUser = 세션이 없거나, 세션은 있어도 해당 세션에 저장된 유저가 없을 경우 null, 있을 경우 해당 유저
+        User loginUser = (session == null) ? null : (User) session.getAttribute("loginUser");
+
         model.addAttribute("post", findPost);
         model.addAttribute("comments", findPost.getComments());
+        model.addAttribute("loginUser", loginUser);
 
         return "post/post-detail";
     }

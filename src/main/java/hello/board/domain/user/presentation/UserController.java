@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,7 +31,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult, HttpServletRequest request) {
+    public String login(@Valid @ModelAttribute("loginForm") LoginForm form,
+                        BindingResult bindingResult,
+                        HttpServletRequest request,
+                        RedirectAttributes redirectAttributes) {
 
         // 잘못된 로그인 입력 처리
         if (bindingResult.hasErrors()) {
@@ -47,6 +51,8 @@ public class UserController {
         //로그인 성공
         HttpSession session = request.getSession();
         session.setAttribute("loginUser", loginUser);
+
+        redirectAttributes.addAttribute("loginUser", loginUser);
 
         return "redirect:/";
     }
