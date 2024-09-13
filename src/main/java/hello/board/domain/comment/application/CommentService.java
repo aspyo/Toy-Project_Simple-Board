@@ -30,8 +30,8 @@ public class CommentService {
      * 댓글 삭제
      */
     @Transactional
-    public void deleteComment(Comment comment) {
-        commentRepository.delete(comment);
+    public void deleteComment(Long commentId) {
+        commentRepository.delete(findComment(commentId));
     }
 
     /**
