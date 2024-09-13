@@ -97,12 +97,24 @@ public class PostController {
         return "redirect:/category/" + categoryId;
     }
 
+    @GetMapping("/post/edit/{id}")
+    public String editForm(@PathVariable("id") Long postId, Model model) {
+        Post editPost = postService.findPost(postId);
+        PostForm form = new PostForm(editPost.getId(), editPost.getTitle(), editPost.getContent());
+        model.addAttribute("form", form);
+        model.addAttribute("category_id", editPost.getCategory().getId());
 
-//    @PostMapping("/post/edit/{id}")
-//    public String edit(@PathVariable("id") Long id) {
-//        Post findPost = postService.findPost(id);
-//
-//    }
+        return "post/post-edit";
+    }
+
+    @PostMapping("/post/edit/{id}")
+    public String edit(@PathVariable("id") Long id, @ModelAttribute PostForm form) {
+        log.info("게시글 수정 post 요청 로직 실행!! form = {}", form);
+
+        postService.editPost(id, form.getTitle(), form.getContent());
+
+        return "redirect:/post/{id}";
+    }
 
     @PostMapping("/post/delete/{id}")
     public String delete(@PathVariable("id") Long postId,

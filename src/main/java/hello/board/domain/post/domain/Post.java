@@ -78,4 +78,14 @@ public class Post extends BaseEntity {
     public void changeCategory(Category category) {
         this.category = category;
     }
+
+    public void changeTitle(String title) {
+        this.title = title;
+    }
+
+    public void changeContent(String content) {
+        this.content = content;
+    }
+
+
 }

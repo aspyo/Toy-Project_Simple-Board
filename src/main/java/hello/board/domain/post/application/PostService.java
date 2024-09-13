@@ -46,6 +46,14 @@ public class PostService {
         postRepository.delete(post);
     }
 
+    // 게시글 수정
+    @Transactional
+    public void editPost(Long postId, String title, String content) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("해당 게시글을 찾을 수 없습니다."));
+        post.changeTitle(title);
+        post.changeContent(content);
+    }
+
     // 메인페이지 게시글 최대 20개 조회
     public List<Post> findMainPagePost() {
         return postRepository.findMainPost();
