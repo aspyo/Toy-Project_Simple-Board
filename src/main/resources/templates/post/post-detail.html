@@ -19,6 +19,15 @@
     <p th:text="${post.content}">게시글 내용</p>
   </div>
 
+  <div th:if="${loginUser != null and loginUser.id == postUser.id}">
+    <form th:action="@{/post/edit/{id}(id=${post.id})}" method="post">
+      <button type="submit">게시글 수정</button>
+    </form>
+    <form th:action="@{/post/delete/{id}(id=${post.id}, category_id=${post.category.id})}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+      <button type="submit">게시글 삭제</button>
+    </form>
+  </div>
+
   <section>
     <h3>댓글</h3>
     <ul>
