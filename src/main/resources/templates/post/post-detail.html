@@ -35,11 +35,8 @@
         <p><strong th:text="${comment.user.username}">작성자</strong></p>
         <p th:text="${comment.content}">댓글 내용</p>
 
-        <!-- 댓글 작성자와 로그인 유저가 동일한 경우 수정 및 삭제 버튼 표시 -->
+        <!-- 댓글 작성자와 로그인 유저가 동일한 경우 삭제 버튼 표시 -->
         <div th:if="${loginUser != null and loginUser.id == comment.user.id}">
-          <form th:action="@{/comment/edit/{id}(id=${comment.id})}" method="get">
-            <button type="submit">댓글 수정</button>
-          </form>
           <form th:action="@{|/comment/delete/${comment.id}?post_id=${post.id}|}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
             <button type="submit">댓글 삭제</button>
           </form>
@@ -49,11 +46,17 @@
     </ul>
 
     <h4>댓글 작성</h4>
-    <form th:action="@{/post/{id}/comment(id=${post.id})}" method="post">
-      <p><strong th:text="${loginUser.username}">로그인된 유저 이름</strong></p>
-      <textarea name="content" placeholder="댓글 내용"></textarea>
-      <button type="submit">댓글 작성</button>
-    </form>
+    <div th:if="${loginUser != null}">
+      <form th:action="@{|/comment?post_id=${post.id}|}" method="post">
+        <textarea name="content" placeholder="댓글 내용"></textarea>
+        <button type="submit">댓글 작성</button>
+      </form>
+    </div>
+    <div th:if="${loginUser == null}">
+      <p>로그인하면 댓글을 작성할 수 있습니다.</p>
+      <a th:href="@{/login(redirectURL=${'/post/' + post.id})}">로그인</a>
+    </div>
+
   </section>
 </main>
 </body>
