@@ -12,14 +12,27 @@
 </header>
 <main>
     <h2>게시글 목록</h2>
-    <ul>
-        <li th:each="post : ${posts}">
-            <a th:href="@{|/post/${post.id}|}" th:text="${post.title}">게시글 제목</a>
-        </li>
-    </ul>
+    <table>
+        <thead>
+        <tr>
+            <th>게시글 ID</th>
+            <th>작성자</th>
+            <th>제목</th>
+            <th>작성일자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${posts}">
+            <td th:text="${post.id}">1</td>
+            <td th:text="${post.user.username}">작성자 이름</td>
+            <td><a th:href="@{|/post/${post.id}|}" th:text="${post.title}">게시글 제목</a></td>
+            <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">2024-09-12</td>
+        </tr>
+        </tbody>
+    </table>
 
     <!-- 새 게시글 작성 링크 -->
-    <a class="new-post-link" th:href="@{|/post/new?category=${category.id}|}">새 게시글 작성</a>
+    <a class="new-post-link" th:href="@{|/create?category=${category.id}|}">새 게시글 작성</a>
 
     <!-- 페이지네이션 -->
     <div class="pagination">

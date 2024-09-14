@@ -2,9 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/post-detail.css">
   <title th:text="${post.title}">게시글 제목</title>
 </head>
 <body>
@@ -21,21 +19,44 @@
     <p th:text="${post.content}">게시글 내용</p>
   </div>
 
+  <div th:if="${loginUser != null and loginUser.id == postUser.id}">
+    <form th:action="@{/post/edit/{id}(id=${post.id})}" method="get">
+      <button type="submit">게시글 수정</button>
+    </form>
+    <form th:action="@{/post/delete/{id}(id=${post.id}, category_id=${post.category.id})}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+      <button type="submit">게시글 삭제</button>
+    </form>
+  </div>
+
   <section>
     <h3>댓글</h3>
     <ul>
       <li th:each="comment : ${comments}">
         <p><strong th:text="${comment.user.username}">작성자</strong></p>
         <p th:text="${comment.content}">댓글 내용</p>
+
+        <!-- 댓글 작성자와 로그인 유저가 동일한 경우 삭제 버튼 표시 -->
+        <div th:if="${loginUser != null and loginUser.id == comment.user.id}">
+          <form th:action="@{|/comment/delete/${comment.id}?post_id=${post.id}|}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+            <button type="submit">댓글 삭제</button>
+          </form>
+        </div>
+
       </li>
     </ul>
 
     <h4>댓글 작성</h4>
-    <form th:action="@{/post/{id}/comment(id=${post.id})}" method="post">
-      <input type="text" name="author" placeholder="작성자"/>
-      <textarea name="content" placeholder="댓글 내용"></textarea>
-      <button type="submit">댓글 작성</button>
-    </form>
+    <div th:if="${loginUser != null}">
+      <form th:action="@{|/comment?post_id=${post.id}|}" method="post">
+        <textarea name="content" placeholder="댓글 내용"></textarea>
+        <button type="submit">댓글 작성</button>
+      </form>
+    </div>
+    <div th:if="${loginUser == null}">
+      <p>로그인하면 댓글을 작성할 수 있습니다.</p>
+      <a th:href="@{/login(redirectURL=${'/post/' + post.id})}">로그인</a>
+    </div>
+
   </section>
 </main>
 </body>

@@ -2,6 +2,8 @@ package hello.board.domain.comment.application;
 
 import hello.board.domain.comment.domain.Comment;
 import hello.board.domain.comment.repository.CommentRepository;
+import hello.board.domain.post.domain.Post;
+import hello.board.domain.user.domain.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,17 +23,23 @@ public class CommentService {
      * 댓글 생성
      */
     @Transactional
-    public Long createComment(Comment comment) {
-        Comment saved = commentRepository.save(comment);
-        return saved.getId();
+    public Long createComment(User user, Post post, String content) {
+        Comment newComment = Comment.builder()
+                .user(user)
+                .content(content)
+                .build();
+        newComment.setPost(post);
+
+        Comment savedComment = commentRepository.save(newComment);
+        return savedComment.getId();
     }
 
     /**
      * 댓글 삭제
      */
     @Transactional
-    public void deleteComment(Comment comment) {
-        commentRepository.delete(comment);
+    public void deleteComment(Long commentId) {
+        commentRepository.delete(findComment(commentId));
     }
 
     /**

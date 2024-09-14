@@ -1,0 +1,119 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background-color: #0073e6;
+    color: #fff;
+    padding: 1em 2em;
+    text-align: center;
+    border-bottom: 4px solid #005bb5;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+header p {
+    margin: 0.5em 0;
+    font-size: 0.9em;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    background-color: #005bb5;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+header a:hover {
+    background-color: #003d80;
+}
+
+/* Main Content Styles */
+main {
+    max-width: 800px;
+    margin: 2em auto;
+    padding: 1em 2em;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Post Content Styles */
+main h2 {
+    margin-top: 0;
+    color: #0073e6;
+}
+
+main p {
+    font-size: 1em;
+    margin: 0.5em 0;
+}
+
+/* Comments Section Styles */
+section {
+    margin-top: 2em;
+}
+
+section h3, section h4 {
+    color: #0073e6;
+    margin-bottom: 0.5em;
+}
+
+section ul {
+    list-style: none;
+    padding: 0;
+}
+
+section ul li {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    background-color: #f9f9f9;
+    border-left: 4px solid #0073e6;
+    border-radius: 4px;
+}
+
+section ul li p {
+    margin: 0.2em 0;
+}
+
+/* Comment Form Styles */
+form {
+    margin-top: 1em;
+}
+
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin: 0.5em 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+form button {
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #005bb5;
+}
