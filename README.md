@@ -1,4 +1,4 @@
-# CRUD Bulletin Board Project
+# CRUD 게시판 개인 토이프로젝트
 
 ## 프로젝트 개요
 
